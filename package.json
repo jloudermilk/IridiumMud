@@ -1,0 +1,16 @@
+{
+	"name":"IridiumMud",
+	"version":"0.1.0",
+	"dependencies":{
+		"colorize":"",
+		"js-yaml":"",
+		"node-uuid":"",
+		"minimist":"",
+		"sprintf":"",
+		"sty":"",
+		"yaml":"",
+		"express":"",
+		"jade":"",
+		"commander": ""
+	}
+}
