@@ -1,16 +1,14 @@
 {
-	"name":"IridiumMud",
-	"version":"0.1.0",
-	"dependencies":{
-		"colorize":"",
-		"js-yaml":"",
-		"node-uuid":"",
-		"minimist":"",
-		"sprintf":"",
-		"sty":"",
-		"yaml":"",
-		"express":"",
-		"jade":"",
-		"commander": ""
-	}
+	"name":"webchat",
+	"version": "0.0.1",
+	"description": "Real time web chat",
+	"dependencies": {
+		"socket.io":"latest",
+		"express":"latest",
+		"morgan": "~1.0.0",
+		"body-parser": "~1.0.0",
+		"method-override": "~1.0.0",
+		"jade": "latest"
+	},
+	"author": "Justin Loudermilk"
 }
