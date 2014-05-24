@@ -3,12 +3,13 @@
   "version": "0.0.1",
   "description": "Nodejs MUD",
   "dependencies": {
-    "socket.io": "latest",
-    "express": "latest",
-    "morgan": "~1.0.0",
     "body-parser": "~1.0.0",
+    "express": "latest",
+    "jade": "latest",
     "method-override": "~1.0.0",
-    "jade": "latest"
+    "mongoose": "^3.8.11",
+    "morgan": "~1.0.0",
+    "socket.io": "latest"
   },
   "author": "Justin Loudermilk",
   "main": "index.js",

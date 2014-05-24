@@ -8,16 +8,20 @@ $(function() {
   ];
 
   // Initialize varibles
+
   var $window = $(window);
   var $usernameInput = $('.usernameInput'); // Input for username
   var $messages = $('.messages'); // Messages area
   var $inputMessage = $('.inputMessage'); // Input message input box
 
   var $loginPage = $('.login.page'); // The login page
+  var $passwordPage = $('.password.page'); // The password page
+  var $registerPage = $('.register.page'); // The register page
   var $chatPage = $('.chat.page'); // The chatroom page
 
   // Prompt for setting a username
   var username;
+  var password;
   var connected = false;
   var typing = false;
   var lastTypingTime;
@@ -38,7 +42,14 @@ $(function() {
   // Sets the client's username
   function setUsername () {
     username = cleanInput($usernameInput.val().trim());
+    /*
+      find a way to check database for username
+      if exist check password input
+      if not ask to register
+    */
 
+
+    //this needs to come after the password or register page
     // If the username is valid
     if (username) {
       $loginPage.fadeOut();

@@ -3,14 +3,39 @@ var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
+var mongoose = require('mongoose');
+var db = mongoose.connection;
+var fs = require('fs');
+
 var port = process.env.PORT || 31337;
 
 var morgan	= require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
+app.use(function(req,res,next){
+    req.db = db;
+    next();
+});
+
+
+
 server.listen(port,function(){
 	console.log('Server listening at port %d', port);
+});
+
+mongoose.connect('mongodb://localhost/test');
+
+fs.readdirSync(__dirname + '/models').forEach(function(filename){
+if(~filename.indexOf('.js')) require(__dirname + '/models/' + filename);
+});
+
+
+
+app.get('/users',function(req,res){
+	mongoose.model('users').find(function(err,users){
+		res.send(users);
+	});
 });
 
 //set the static files location /public
