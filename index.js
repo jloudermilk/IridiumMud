@@ -5,6 +5,7 @@ var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 var mongoose = require('mongoose');
 var db = mongoose.connection;
+var MONGOHQ_URL="mongodb://kuragari:12345@oceanic.mongohq.com:10095/users"
 var fs = require('fs');
 
 var port = process.env.PORT || 31337;
@@ -24,7 +25,7 @@ server.listen(port,function(){
 	console.log('Server listening at port %d', port);
 });
 
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect(MONGOHQ_URL);
 
 fs.readdirSync(__dirname + '/models').forEach(function(filename){
 if(~filename.indexOf('.js')) require(__dirname + '/models/' + filename);
@@ -33,9 +34,9 @@ if(~filename.indexOf('.js')) require(__dirname + '/models/' + filename);
 
 
 app.get('/users',function(req,res){
-	mongoose.model('users').find(function(err,users){
-		res.send(users);
-	});
+//	mongoose.model('users').find(function(err,users){
+//		res.send(users);
+//	});
 });
 
 //set the static files location /public
