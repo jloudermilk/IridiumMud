@@ -86,7 +86,84 @@ ul {
   color: #fff;
   font-weight: 100;
 }
+/* Register Page */
 
+.register.page {
+  background-color: #202020;
+}
+
+.register.page .form {
+  height: 100px;
+  margin-top: -100px;
+  position: absolute;
+
+  text-align: center;
+  top: 50%;
+  width: 100%;
+}
+
+.register.page .form .usernameInput {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #fff;
+  outline: none;
+  padding-bottom: 15px;
+  text-align: center;
+  width: 400px;
+}
+
+.register.page .title {
+  font-size: 200%;
+}
+
+.register.page .usernameInput {
+  font-size: 200%;
+  letter-spacing: 3px;
+}
+
+.register.page .title, .register.page .usernameInput {
+  color: #fff;
+  font-weight: 100;
+}
+/* Password Page */
+
+.password.page {
+  background-color: #202020;
+}
+
+.password.page .form {
+  height: 100px;
+  margin-top: -100px;
+  position: absolute;
+
+  text-align: center;
+  top: 50%;
+  width: 100%;
+}
+
+.password.page .form .passwordInput {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #fff;
+  outline: none;
+  padding-bottom: 15px;
+  text-align: center;
+  width: 400px;
+}
+
+.password.page .title {
+  font-size: 200%;
+}
+
+.password.page .passwordInput {
+  font-size: 200%;
+  letter-spacing: 3px;
+}
+
+.password.page .title, .register.page .passwordInput {
+  color: #fff;
+  font-weight: 100;
+}
 /* Chat page */
 
 .chat.page {

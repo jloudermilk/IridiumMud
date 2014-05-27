@@ -11,6 +11,7 @@ $(function() {
 
   var $window = $(window);
   var $usernameInput = $('.usernameInput'); // Input for username
+  var $passwordInput= $('.passwordInput'); // Input for password
   var $messages = $('.messages'); // Messages area
   var $inputMessage = $('.inputMessage'); // Input message input box
 
