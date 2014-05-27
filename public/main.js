@@ -11,7 +11,6 @@ $(function() {
 
   var $window = $(window);
   var $usernameInput = $('.usernameInput'); // Input for username
-  var $passwordInput= $('.passwordInput'); // Input for password
   var $messages = $('.messages'); // Messages area
   var $inputMessage = $('.inputMessage'); // Input message input box
 
@@ -68,6 +67,9 @@ $(function() {
     var message = $inputMessage.val();
     // Prevent markup from being injected into the message
     message = cleanInput(message);
+
+    var str = message.split(" ",2);
+
     // if there is a non-empty message and a socket connection
     if (message && connected) {
       $inputMessage.val('');

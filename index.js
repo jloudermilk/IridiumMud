@@ -4,6 +4,7 @@ var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 var mongoose = require('mongoose');
+var commands = require(__dirname + "commands/commands.js")
 var db = mongoose.connection;
 var MONGOHQ_URL="mongodb://kuragari:12345@oceanic.mongohq.com:10095/users"
 var fs = require('fs');
