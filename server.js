@@ -4,6 +4,7 @@ var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 var mongoose = require('mongoose');
+var crypto = require('crypto');
 var db = mongoose.connection;
 var MONGOHQ_URL="mongodb://kuragari:12345@oceanic.mongohq.com:10095/users"
 var fs = require('fs');
@@ -74,9 +75,15 @@ io.on('connection', function(socket){
 	 });
 
 	 socket.on('user check', function(user) {
-	 	userList.find({username: user}, function(err,userExists){
-	 		if(err) return console.error(err);
-	 		console.log(userExists + ' Exists');
+	 	console.log('user ' + user);
+	 	userList.findOne({username: user}, function(err,userExists){
+	 		
+	 		if(userExists.where('username',user)){
+	 			console.log('userExists')
+	 		}
+	 		else 
+	 			return console.error(err);
+
 	 	});
 	});
 	 //when the client emits 'add user', this listens and executes

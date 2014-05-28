@@ -12,7 +12,7 @@
     "socket.io": "latest"
   },
   "author": "Justin Loudermilk",
-  "main": "index.js",
+  "main": "server.js",
   "devDependencies": {},
   "repository": {
     "type": "git",

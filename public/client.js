@@ -303,4 +303,9 @@ $(function() {
   socket.on('stop typing', function (data) {
     removeChatTyping(data);
   });
+  socket.on('user valid',function(data)
+  {
+    
+
+  });
 });
