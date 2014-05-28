@@ -9,6 +9,9 @@ var db = mongoose.connection;
 var MONGOHQ_URL="mongodb://kuragari:12345@oceanic.mongohq.com:10095/users"
 var fs = require('fs');
 
+var shasum = crypto.createHash('sha1');
+
+
 var port = process.env.PORT || 31337;
 
 var morgan	= require('morgan');
@@ -77,8 +80,7 @@ io.on('connection', function(socket){
 	 socket.on('user check', function(user) {
 	 	console.log('user ' + user);
 	 	userList.findOne({username: user}, function(err,userExists){
-	 		
-	 		if(userExists.where('username',user)){
+	 	 if(userExists){
 	 			console.log('userExists')
 	 		}
 	 		else 
@@ -86,6 +88,29 @@ io.on('connection', function(socket){
 
 	 	});
 	});
+	 socket.on('pw check', function(user,pw) {
+
+	 	userList.findOne({username: user}, function(err,userExists){
+	 	 if(userExists){
+	 	 	var passhash = crypto.createHash('md5').update(pw).digest('hex');
+	 	 	if(userExists.password === passhash)
+	 	 	{
+	 			console.log('valid pw');
+	 			console.log(passhash);
+	 			socket.emit('valid pw');
+	 		}
+	 		else 
+	 		{
+	 			console.log('invalid pw');
+	 			socket.emit('invalid pw');
+	 		}
+	 	}
+	 	else
+	 	{
+	 		return console.error(err);
+	 	}
+	 });
+});
 	 //when the client emits 'add user', this listens and executes
 	 socket.on('add user', function(username){
 	 	//store the username in the socket session for this client

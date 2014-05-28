@@ -72,23 +72,31 @@ $(function() {
       if exist check password input
       if not ask to register
     */
-  
-    //this needs to come after the password or register page
-    // If the username is valid
-    if (password) {
-      $passwordPage.fadeOut();
-      $chatPage.show();
-      $passwordPage.off('click');
-      $currentInput = $inputMessage.focus();
-      registered = true;
+  socket.emit('pw check', username, password);
 
+  }
+
+  function validPassword()
+  {
+    
+    $passwordPage.fadeOut();
+    $chatPage.show();
+    $passwordPage.off('click');
+    $currentInput = $inputMessage.focus();
+    registered = true;
+    
       // Tell the server your username
       socket.emit('add user', username);
-    }
+
+  }
+  function invalidPassword()
+  {
+    $('div#passDiv.form').effect('shake',{distance:5},500).distance(10);
   }
 
   // Sends a chat message
-  function sendMessage () {
+  function sendMessage () 
+  {
     var message = $inputMessage.val();
     // Prevent markup from being injected into the message
     message = cleanInput(message);
@@ -279,6 +287,13 @@ $(function() {
   // Whenever the server emits 'new message', update the chat body
   socket.on('new message', function (data) {
     addChatMessage(data);
+  });
+
+  socket.on('valid pw', function () {
+    validPassword();
+  });
+  socket.on('invalid pw', function () {
+    invalidPassword();
   });
 
   // Whenever the server emits 'user joined', log it in the chat body
