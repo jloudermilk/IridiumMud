@@ -9,8 +9,8 @@ var db = mongoose.connection;
 var MONGOHQ_URL="mongodb://kuragari:12345@oceanic.mongohq.com:10095/users"
 var fs = require('fs');
 
-var shasum = crypto.createHash('sha1');
-
+var sanitizer = require('sanitizer');
+var validator = require('validator');
 
 var port = process.env.PORT || 31337;
 
@@ -79,38 +79,82 @@ io.on('connection', function(socket){
 
 	 socket.on('user check', function(user) {
 	 	console.log('user ' + user);
+
 	 	userList.findOne({username: user}, function(err,userExists){
 	 	 if(userExists){
-	 			console.log('userExists')
+	 	 		socket.emit('user valid')
+	 			console.log('userExists');
 	 		}
-	 		else 
-	 			return console.error(err);
-
+	 		else {
+	 			console.log('user not found');
+	 			socket.emit('user invalid');
+	 		}
 	 	});
+	});
+	 socket.on('register user', function(user,pass1,pass2,email) {
+	 	var passMatch = (pass1 === pass2);
+	 	var emailValid = validator.isEmail(email);
+	 	if(passMatch && emailValid)
+	 	{
+	 		var passhash = crypto.createHash('md5').update(pass1).digest('hex');
+	 		var user_data =
+	 		{
+	 			username: user,
+	 			password: passhash,
+	 			email: email
+	 		}
+	 	console.log('registering');
+	 	var newUser = new userList(user_data);
+	 	console.log(newUser);
+	 	newUser.save( function(err){
+    		if(err){
+    			console.log('error');
+        		console.log(err);
+        	}
+		});
+	 	socket.emit('registration complete');
+	 	}
+	 	else if(emailValid)
+	 	{
+	 		console.log('passwords dont match');
+	 		socket.emit('password mismatch');
+	 	}
+	 	else if(passMatch)
+	 	{
+	 		console.log('email not valid');
+	 		socket.emit('email invalid');
+	 	}
+	 	else
+	 	{
+	 		console.log('email not valid');
+	 		socket.emit('email invalid');
+	 		console.log('passwords dont match');
+	 		socket.emit('password mismatch');
+	 	}
 	});
 	 socket.on('pw check', function(user,pw) {
 
 	 	userList.findOne({username: user}, function(err,userExists){
-	 	 if(userExists){
-	 	 	var passhash = crypto.createHash('md5').update(pw).digest('hex');
-	 	 	if(userExists.password === passhash)
-	 	 	{
-	 			console.log('valid pw');
-	 			console.log(passhash);
-	 			socket.emit('valid pw');
+	 	 	if(userExists){
+	 	 		var passhash = crypto.createHash('md5').update(pw).digest('hex');
+	 	 		if(userExists.password === passhash)
+	 	 		{
+	 				console.log('valid pw');
+	 				console.log(passhash);
+	 				socket.emit('valid pw');
+	 			}
+	 			else 
+	 			{
+	 				console.log('invalid pw');
+	 				socket.emit('invalid pw');
+	 			}
 	 		}
-	 		else 
+	 		else
 	 		{
-	 			console.log('invalid pw');
-	 			socket.emit('invalid pw');
+	 			return console.error(err);
 	 		}
-	 	}
-	 	else
-	 	{
-	 		return console.error(err);
-	 	}
-	 });
-});
+	 	});
+	});
 	 //when the client emits 'add user', this listens and executes
 	 socket.on('add user', function(username){
 	 	//store the username in the socket session for this client

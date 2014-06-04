@@ -126,13 +126,13 @@ ul {
   color: #fff;
   font-weight: 100;
 }
-/* Login Page */ /*
+/* Register Page */
 
-.login.page {
+.register.page {
   background-color: #202020;
 }
 
-.login.page .form {
+.register.page .form {
   height: 100px;
   margin-top: -100px;
   position: absolute;
@@ -142,7 +142,7 @@ ul {
   width: 100%;
 }
 
-.login.page .form .usernameInput {
+.register.page .form .regPass1Input,.register.page .form .regPass2Input,.register.page .form .regEmailInput{
   background-color: transparent;
   border: none;
   border-bottom: 2px solid #fff;
@@ -152,20 +152,25 @@ ul {
   width: 400px;
 }
 
-.login.page .title {
+.register.page .title {
   font-size: 200%;
 }
 
-.login.page .usernameInput {
+.register.page .regPass1Input ,.register.page .regPass2Input{
   font-size: 200%;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
+}
+.register.page .regEmailInput{
+  font-size: 200%;
+  letter-spacing: 2px;
 }
 
-.login.page .title, .login.page .usernameInput {
+.register.page .title, .register.page .regPass1Input, .register.page .regPass2Input,.register.page .regEmailInput{
   color: #fff;
   font-weight: 100;
 }
-*/
+
+
 /* Chat page */
 
 .chat.page {

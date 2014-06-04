@@ -11,7 +11,8 @@
     "morgan": "~1.0.0",
     "socket.io": "latest",
     "sanitizer": "latest",
-    "validator": "latest"
+    "validator": "latest
+    "
   },
   "author": "Justin Loudermilk",
   "main": "server.js",
