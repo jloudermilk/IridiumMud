@@ -11,6 +11,8 @@ $(function() {
 
   var $window = $(window);
   var $usernameInput = $('.usernameInput'); // Input for username
+  var $passwordInput = $('.passwordInput'); // Input for username
+
   var $messages = $('.messages'); // Messages area
   var $inputMessage = $('.inputMessage'); // Input message input box
 
@@ -18,10 +20,11 @@ $(function() {
   var $passwordPage = $('.password.page'); // The password page
   var $registerPage = $('.register.page'); // The register page
   var $chatPage = $('.chat.page'); // The chatroom page
-
+  var $greeting = $('span#greeting');
   // Prompt for setting a username
-  var username;
-  var password;
+  var username = "";
+  var password = "";
+  var registered = false;
   var connected = false;
   var typing = false;
   var lastTypingTime;
@@ -29,33 +32,55 @@ $(function() {
 
   var socket = io.connect();
 
+
   function addParticipantsMessage (data) {
     var message = '';
     if (data.numUsers === 1) {
-      message += "there's 1 participant";
+      message += "there is 1 participant";
     } else {
-      message += "there're " + data.numUsers + " participants";
+      message += "there are " + data.numUsers + " participants";
     }
     log(message);
   }
 
   // Sets the client's username
   function setUsername () {
-    username = cleanInput($usernameInput.val().trim());
+    username = cleanInput($usernameInput.val().trim()); 
+    socket.emit('user check', username);
+    
+    $greeting.text(username);
     /*
       find a way to check database for username
       if exist check password input
       if not ask to register
     */
 
-
     //this needs to come after the password or register page
     // If the username is valid
     if (username) {
       $loginPage.fadeOut();
-      $chatPage.show();
+      $passwordPage.show();
       $loginPage.off('click');
+      $currentInput = $passwordInput.focus();
+    }
+  }
+  function setPassword() {
+   
+    password = cleanInput($passwordInput.val().trim());
+     /*
+      find a way to check database for username
+      if exist check password input
+      if not ask to register
+    */
+  
+    //this needs to come after the password or register page
+    // If the username is valid
+    if (password) {
+      $passwordPage.fadeOut();
+      $chatPage.show();
+      $passwordPage.off('click');
       $currentInput = $inputMessage.focus();
+      registered = true;
 
       // Tell the server your username
       socket.emit('add user', username);
@@ -207,11 +232,16 @@ $(function() {
     }
     // When the client hits ENTER on their keyboard
     if (event.which === 13) {
-      if (username) {
+      if (username && registered) {
         sendMessage();
         socket.emit('stop typing');
         typing = false;
-      } else {
+      } 
+      else if (username)
+      {
+        setPassword();
+      }
+       else {
         setUsername();
       }
     }

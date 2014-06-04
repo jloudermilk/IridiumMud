@@ -13,27 +13,35 @@
       </div>
       <input class="inputMessage" placeholder="Type here..."/>
     </li>
-    <li class="login page">
-      <div class="form">
-        <h3 class="title">What's your nickname?</h3>
-        <input class="usernameInput" type="text" maxlength="14" />
-       <!-- 
-       <input class="passwordInput" type="password" maxlength="20" />
-        -->
-
+    <li class="password page">
+      <div class="form" id = "passDiv">
+        <h3 class="title">Welcome back <span id = "greeting">username</span>! <br>What's your password?</h3>
+       <input class="passwordInput" type="password" maxlength="20"/>
       </div>
     </li>
-    <li class="password page">
+    <li class="register page">
+      <div class="form" id = "regDiv">
+        <h3 class="title">Hello <span id = "greeting">username</span>! 
+          <br>Would you like to register?</h3>
+       <input class="regPass1Input" type="password" maxlength="20" placeholder="Password"/>
+       <br>
+       <input class="regPass2Input" type="password" maxlength="20" placeholder="Password Check"/>
+       <br>
+       <input class="regEmailInput" type="email" maxlength="50" placeholder="example@email.com"/>
+      </div>
+    </li>
+    <li class="login page">
       <div class="form">
-        <h3 class="title">What's your nickname?</h3>
+        <h3 class="title">What's your username?</h3>
         <input class="usernameInput" type="text" maxlength="14" />
-       
-       <input class="passwordInput" type="password" maxlength="20"/>
-      
+      </div>
+    </li>
+
   </ul>
 
   <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
   <script src="/socket.io/socket.io.js"></script>
-  <script src="/main.js"></script>
+  <script src="/client.js"></script>
 </body>
 </html>

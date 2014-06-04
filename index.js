@@ -31,12 +31,21 @@ fs.readdirSync(__dirname + '/models').forEach(function(filename){
 if(~filename.indexOf('.js')) require(__dirname + '/models/' + filename);
 });
 
+//getting this to work, user.js is not working so im not sure what to do here
+var Schema = mongoose.Schema;
+
+var usersSchema = new Schema({
+	username: String,
+	password: String,
+	email: String
+});
+var userList = mongoose.model('users',usersSchema);
 
 
 app.get('/users',function(req,res){
-//	mongoose.model('users').find(function(err,users){
-//		res.send(users);
-//	});
+	mongoose.model('users').find(function(err,users){
+		res.send(users);
+	});
 });
 
 //set the static files location /public
@@ -64,6 +73,12 @@ io.on('connection', function(socket){
 	 	});
 	 });
 
+	 socket.on('user check', function(user) {
+	 	userList.find({username: user}, function(err,userExists){
+	 		if(err) return console.error(err);
+	 		console.log(userExists + ' Exists');
+	 	});
+	});
 	 //when the client emits 'add user', this listens and executes
 	 socket.on('add user', function(username){
 	 	//store the username in the socket session for this client

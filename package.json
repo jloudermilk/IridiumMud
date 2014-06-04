@@ -9,10 +9,13 @@
     "method-override": "~1.0.0",
     "mongoose": "^3.8.11",
     "morgan": "~1.0.0",
-    "socket.io": "latest"
+    "socket.io": "latest",
+    "sanitizer": "latest",
+    "validator": "latest
+    "
   },
   "author": "Justin Loudermilk",
-  "main": "index.js",
+  "main": "server.js",
   "devDependencies": {},
   "repository": {
     "type": "git",
@@ -26,5 +29,8 @@
   "bugs": {
     "url": "https://github.com/lordkuragari/IridiumMud/issues"
   },
-  "homepage": "https://github.com/lordkuragari/IridiumMud"
+  "homepage": "https://github.com/lordkuragari/IridiumMud",
+  "scripts": {
+    "start": "node server.js"
+  }
 }
