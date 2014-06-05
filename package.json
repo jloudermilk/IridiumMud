@@ -1,6 +1,6 @@
 {
   "name": "IridiumMud",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Nodejs MUD",
   "dependencies": {
     "body-parser": "~1.0.0",
@@ -11,8 +11,7 @@
     "morgan": "~1.0.0",
     "socket.io": "latest",
     "sanitizer": "latest",
-    "validator": "latest
-    "
+    "validator": "latest"
   },
   "author": "Justin Loudermilk",
   "main": "server.js",
